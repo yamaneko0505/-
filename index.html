@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>マシンの新規作成　手順書</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Yusei+Magic&display=swap" />
+  <link rel="stylesheet" href="main.css" />
+  <style>
+    section {
+      padding-top: 40px;
+      /* 余白の調整、必要に応じて変更してください */
+    }
+  </style>
+</head>
+
+<body> <!-- ここから本文開始 -->
+
+
+  <!--<header class="fixed-header">
+    サイコロ５軸切削の手順書
+    <nav>
+      <ul>
+        <li><a href="#first-sec">事前準備</a></li>
+        <li><a href="#set-sec">設定の作成手順</a></li>
+        <li><a href="#tool-sec">工具の新規作成方法</a></li>
+        <li><a href="#pas01-sec">ツールパスの作成　面切削</a></li>
+        <li><a href="#pas02-sec">ツールパスの作成　粗削り</a></li>
+        <li><a href="#pas03-sec">ツールパスの作成　45°斜め切削</a></li>
+      </ul>
+    </nav>
+  </header>-->
+
+  <!--
+  <div class="header-space"></div>
+  <div class="image-container">
+    <img src="title.jpg" alt="かっけー枠">
+    <div class="overlay-text">yamaneko's Portfolio</div>
+  </div>
+  <div class="header-space"></div>
+-->
+
+  <p>
+
+  <h1>FusionCAD/CAM<br>マシンの新規作成の手順</h1>
+    <ul>
+      <li><a href="#first-sec">事前準備</a></li>
+      <li><a href="#set-sec">作業手順</a></li>
+    </ul>
+
+  <section id="first-sec">
+    <h2>事前準備</h2>
+    あらかじめ、Fusion360CADを用いて新規作成したい加工機の3Dモデルを製作
+    しておく。５軸なのでX,Y,Z,B,Cでそれぞれ可動する部品を１つのコンポーネント
+    に分けて、アセンブリしてジョイントで接続し、モーションを回転にしておく。
+  <div class="container">
+  <img src="01.png" alt="01" width="100%" /><br>
+  </div>
+
+  <section id="set-sec">
+  <h2>作業手順</h2>
+  まず、削りたいモデルのファイルを開いて、「製造」作業スペースに変更し、
+  管理から「マシンライブラリ」を開く。
+  <img src="02.png" alt="02" width="100%" /><br><br><br>
+  Fusionライブラリから、新規作成したい加工機に近い加工機を探す。今回の場合は、
+  X,Y,Z,B,C軸の５軸を持っていて、X,Z軸が工具ヘッド側、Y,B,C軸がテーブル側で
+  可動する加工機をFusionライブラリから探した。今回は「Autodesk Generic 
+  5-axis (BC Table-Table)」という加工機を選択した。
+  <img src="03.png" alt="03" width="100%" /><br><br><br>
+
+  似た加工機を見つけたら、その加工機を選択して右クリックからコピーして、
+  マイマシン→ローカルの場所にペーストして加工機モデルをダウンロードする。
+  <img src="04.png" alt="04" width="100%" /><br>
+  <img src="05.png" alt="05" width="100%" /><br><br><br>
+
+  ダウンロードができたら、その加工機を選んで、鉛筆マークのボタンで
+  「マシン定義」ウインドウを開く。
+<img src="06.png" alt="06" width="100%" /><br><br><br>
+
+「全般」タブではベンダーに加工機の製造会社、モデルに加工機の名前、
+詳細に加工機のおおまかな説明や補足情報などを入力する。また加工機の
+外観の写真も挿入できる。わかりやすいため写真を撮って挿入しておく。
+<img src="07.png" alt="07" width="100%" /><br><br><br>
+
+「性能」タブでは一番上の４つのボタンで加工機が旋盤なのかフライス盤
+なのかを選択し、工具交換機能があるならチェックを入れ、工具の数を入力する。
+最大送り速度も入力しておく。
+<img src="08.png" alt="08" width="100%" /><br><br><br>
+
+「キネマティクス」タブでは、どの軸がヘッドもしくはテーブルにどの順番で
+接続されているのかを指定する。「head」は刃物の取り付け部、「table」は
+材料の取付部を表している。扱う加工機をよく観察し、加工機の動かない筐体
+（ボディ）の部分から、各軸の可動部品がどのような順番で接続されて最終的に
+刃物（材料）取り付け部につながっているのかを理解し、その通りの順番に上から
+軸が並ぶようにする。headが動く軸はheadに、tableが動く軸はtableに接続
+されるようにする。衝突設定を開いて、工具・ストック・固定具にチェックを入れる。
+<img src="09.png" alt="09" width="100%" /><br><br><br>
+
+「ポスト処理」タブではGコードを出力する場所を指定することができる。任意の場所に設定しておく。
+<img src="10.png" alt="10" width="100%" /><br><br><br>
+
+「複合軸」タブは特に変更する必要なし。<br>
+「その他の設定」タブでは基本的に送り速度比は100%、工具交換時間は
+おおよその値を入力しておく。
+<img src="11.png" alt="11" width="100%" /><br><br><br>
+
+「モデル」タブではフォルダのマークのボタンを押して、製作しておいた
+加工機の3Dモデルをインポートする。
+<img src="12.png" alt="12" width="100%" /><br>
+<img src="13.png" alt="13" width="100%" /><br><br><br>
+
+「マシンビルダー」ボタンを押すと、作業スペースが「マシンビルダー」
+となった加工機の3Dモデルファイルが開かれる。
+<img src="14.png" alt="14" width="100%" /><br>
+<img src="15.png" alt="15" width="100%" /><br><br><br>
+
+「マシンビルダー」での作業（以下の内容はあくまでも「Autodesk Generic 
+5-axis (BC Table-Table)」を元に、「静岡鐵工所製BT-30N　５軸マシニングセンタ」
+を新規作成するときの手順であり、まったく異なる加工機を追加する際はまた違う。
+よく内容を理解して応用してほしい。）<br>
+「マシンモデルをセットアップ」ボタンを押すと小さめのウィンドウが出てくる。
+<img src="16.png" alt="16" width="100%" /><br><br><br>
+
+アタッチ点<br>
+「工具」は工具のホルダーが取り付く点を選択する。<br>
+「パーツ」は削る材料が取り付けられたとき、材料の底面が当たる位置の中心位置の点を選択する。<br>
+モデル選択<br>
+静的<br>
+「static_0」は加工機の動かない筐体（ボディ）部分のコンポーネントを選択する。<br>
+ヘッド<br>
+「X」はX軸に従って動くコンポーネントを選択する。<br>
+「Z」はZ軸に従って動くコンポーネントを選択する。<br>
+テーブル<br>
+「Y」はY軸に従って動くコンポーネントを選択する。<br>
+「B」はZ軸に従って動くコンポーネントを選択する。またBの原点はB軸の回転軸を選択する（回転軸に垂直な円周や円の面などでよい。）<br>
+「C」はC軸に従って動くコンポーネントを選択する。またCの原点はC軸の回転軸を選択する（回転軸に垂直な円周や円の面などでよい。）<br>
+「マシンモデルのセットアップ」を閉じる。
+<img src="17.png" alt="17" width="100%" /><br><br><br>
+
+「マシン動作をプレビュー」ボタンを押してウインドウを開く。
+各可動軸のつまみをスライドして、うまく軸に沿ってコンポーネントが
+動いたら作業終了。
+<img src="18.png" alt="18" width="100%" /><br>
+<img src="19.png" alt="19" width="100%" /><br><br><br>
+
+削りたいモデルの「製造」作業スペースで設定から追加した加工機を選択すると、マシンの3Dモデルが出現する。
+<img src="20.png" alt="20" width="100%" /><br>
+<img src="21.png" alt="21" width="100%" /><br>
+<img src="22.png" alt="22" width="100%" /><br><br><br>
+
+適当なツールパスを作成して工具や加工条件を指定し、「マシンを使用してシミュレート」
+を押してみよう。追加した加工機の3Dモデルが出現してうまく動いたら成功だ。チャックと
+刃物などが接触したら干渉を検知してその部分が赤くなるはずだ。
+<img src="23.png" alt="23" width="100%" /><br><br><br>
+
+
+
+
+
+  
+  </p>
+
+</body> <!-- ここまで本文終了 -->
+
+</html>
